@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block banner %}
+{% endblock %}
+{% block content %}
+<div class="topnews">
+  <h3>文章列表</h3>
+  <hr  style="color:#C00"/>
+  {% for article in articles %}
+  <div class="blogs">
+    <ul>
+      <div class="divimg"><img src="/static/images/7.jpg" style="max-width:100%; width:100%"; height="100%"/></div>
+      <h3><a href="/article/?id={{ article.id }}">{{ article.title }}</a></h3>
+      <p>{{ article.desc }}</p>
+      <p class="autor"><span class="lm f_l">{% for tag in article.tag.all %}<a href="/">{{ tag.name }}</a>&nbsp;</span>{% endfor %}<span class="dtime f_l">{{ article.date_publish | date:'Y-m-d'}}</span><span class="viewnum f_r">浏览（<a href="/">{{ article.click_count }}</a>）</span><span class="pingl f_r">评论（<a href="/">{{ article.comment_set.all.count }}</a>）</span></p>
+    </ul>
+  </div>
+  {% endfor %} </div>
+{% include 'pagination.html' %}
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block banner %}
+<div id="featured">
+  <div id="featured-block"> <a name="TemplateInfo"></a>
+    <div class="image-block">
+      <div class="wrapper">
+        <ul id="sb-slider" class="sb-slider" style="max-width: 700px; overflow: hidden;">
+          <li class="" style="display: none;"> <a href="#" target="_blank"><img src="/static/images/1.jpg" alt="image1"></a>
+            <div class="sb-description">
+              <h3>Creative Lifesaver</h3>
+            </div>
+          </li>
+          <li class="" style="display: none;"> <a href="#" target="_blank"><img src="/static/images/2.jpg" alt="image2"></a>
+            <div class="sb-description">
+              <h3>Honest Entertainer</h3>
+            </div>
+          </li>
+          <li class="" style="display: none;"> <a href="#" target="_blank"><img src="/static/images/3.jpg" alt="image1"></a>
+            <div class="sb-description">
+              <h3>Brave Astronaut</h3>
+            </div>
+          </li>
+          <li class="sb-current" style="display: none;"> <a href="#" target="_blank"><img src="/static/images/4.jpg" alt="image1"></a>
+            <div class="sb-description">
+              <h3>Affectionate Decision Maker</h3>
+            </div>
+          </li>
+          <li> <a href="#" target="_blank"><img src="/static/images/5.jpg" alt="image1"></a>
+            <div class="sb-description">
+              <h3>Faithful Investor</h3>
+            </div>
+          </li>
+          <li> <a href="#" target="_blank"><img src="/static/images/6.jpg" alt="image1"></a>
+            <div class="sb-description">
+              <h3>Groundbreaking Artist</h3>
+            </div>
+          </li>
+          <li> <a href="#" target="_blank"><img src="/static/images/7.jpg" alt="image1"></a>
+            <div class="sb-description">
+              <h3>Selfless Philantropist</h3>
+            </div>
+          </li>
+        </ul>
+        <div id="nav-arrows" class="nav-arrows" style="display: block;"> <a href="#" id="next1">Next</a> <a href="#">Previous</a> </div>
+      </div>
+      <!-- /wrapper --> 
+      <script type="text/javascript" src="/static/js/jquery.min.js"></script> 
+      <script type="text/javascript" src="/static/js/jquery.slicebox.js"></script> 
+      <script type="text/javascript">
+      $(function() {
+        
+        var Page = (function() {
+
+          var $navArrows = $( '#nav-arrows' ).hide(),
+            $shadow = $( '#shadow' ).hide(),
+            slicebox = $( '#sb-slider' ).slicebox( {
+              onReady : function() {
+
+                $navArrows.show();
+                $shadow.show();
+                
+
+              },
+              orientation : 'r',
+              cuboidsRandom : true,
+              disperseFactor : 30,
+              autoplay:true
+            } ),
+            
+            init = function() {
+
+              initEvents();
+              
+            },
+            initEvents = function() {
+
+              // add navigation events
+              $navArrows.children( ':first' ).on( 'click', function() {
+
+                slicebox.next();
+                
+
+              } );
+                           
+              $navArrows.children( ':last' ).on( 'click', function() {
+                
+                slicebox.previous();
+                
+
+              } );
+                          
+            };
+
+
+            return { init : init };
+
+        })();
+        Page.init();
+
+      });
+    </script> 
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="topnews">
+  <h3>最新文章</h3>
+  <hr  style="color:#C00"/>
+  {% for article in article_list %}
+  <div class="blogs">
+    <ul>
+      <div class="divimg"><img src="/static/images/7.jpg" style="max-width:100%; width:100%"; height="100%"/></div>
+      <h3><a href="/article/?id={{ article.id }}">{{ article.title }}</a></h3>
+      <p>{{ article.desc }}</p>
+      <p class="autor"><span class="lm f_l">{% for tag in article.tag.all %}<a href="/">{{ tag.name }}</a>&nbsp;</span>{% endfor %}<span class="dtime f_l">{{ article.date_publish | date:'Y-m-d'}}</span><span class="viewnum f_r">浏览（<a href="/">{{ article.click_count }}</a>）</span><span class="pingl f_r">评论（<a href="/">{{ article.comment_set.all.count }}</a>）</span></p>
+    </ul>
+  </div>
+  {% endfor %} </div>
+  <a href="{% url 'articlelist' %}"> 查看更多</a>
+{% endblock %}

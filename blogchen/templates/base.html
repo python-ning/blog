@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>个人博客</title>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="author" content="Erwin Aligam - styleshout.com" />
+<meta name="description" content="Site Description Here" />
+<meta name="keywords" content="keywords, here" />
+<meta name="robots" content="index, follow, noarchive" />
+<meta name="googlebot" content="noarchive" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/screen.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/slicebox.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+<script type="text/javascript" src="/static/js/modernizr.custom.46884.js"></script>
+<!--[if IE 6]><link rel="stylesheet" type="text/css" href="css/ie6.css" media="screen" /><![endif]-->
+
+</head>
+
+<body>
+
+<!-- wrap -->
+<div id="wrap"> 
+  
+  <!-- header -->
+  <div id="header"> <a name="top"></a>
+    <h1 id="logo-text"><a href="index.html" title="">python_ning</a></h1>
+    <p id="slogan">like python like you </p>
+    <div  id="nav">
+      <ul class="menu">
+        <li><a href="{% url 'index' %}">首页</a></li>
+        <li><a href="{% url 'articlelist' %}">文章</a>
+          <ul class="submenu">
+            <li><a href="#">子菜单A</a></li>
+            <li><a href="#">子菜单B</a></li>
+            <li><a href="#">子菜单C</a></li>
+          </ul>
+        </li>
+        <li class="active"><a href="#s2">心情</a>
+          <ul class="submenu">
+            <li><a href="#">子菜单A</a></li>
+            <li><a href="#">子菜单B</a></li>
+            <li><a href="#">子菜单C</a></li>
+          </ul>
+        </li>
+        <li><a href="#">相册</a>
+          <ul class="submenu">
+            <li><a href="#">子菜单A</a></li>
+            <li><a href="#">子菜单B</a></li>
+            <li><a href="#">子菜单C</a></li>
+            <li><a href="#">子菜单H</a></li>
+          </ul>
+        </li>
+        <li><a href="#">留言</a></li>
+        <li><a href="#">关于我</a></li>
+      </ul>
+      <span class="sp1"><a href="{% url 'login' %}">登陆</a> | <a href="{% url 'reg' %}">注册</a></span> </div>
+    <form id="quick-search" action="index.html" method="get" >
+      <p>
+        <label for="qsearch">Search:</label>
+        <input class="tbox" id="qsearch" type="text" name="qsearch" value="Search..." title="Start typing and hit ENTER" />
+        <input class="btn" alt="Search" type="image" name="searchsubmit" title="Search" src="/static/images/search.png" />
+      </p>
+    </form>
+    
+    <!-- /header --> 
+  </div>
+  <div class="clear"></div>
+  
+  <!-- main -->
+  <div id="main">
+{% block banner %}
+{% endblock %}
+{% block content %}
+{% endblock %}
+    <!-- /main --> 
+  </div>
+  <div class="div_r">
+    <div class="moreSelect" id="lp_right_select"> 
+      <script>
+window.onload = function ()
+{
+  var oLi = document.getElementById("tab").getElementsByTagName("li");
+  var oUl = document.getElementById("ms-main").getElementsByTagName("div");
+
+  for(var i = 0; i < oLi.length; i++)
+  {
+    oLi[i].index = i;
+    oLi[i].onmouseover = function ()
+    {
+      for(var n = 0; n < oLi.length; n++) oLi[n].className="";
+      this.className = "cur";
+      for(var n = 0; n < oUl.length; n++) oUl[n].style.display = "none";
+      oUl[this.index].style.display = "block"
+    }
+  }
+}
+</script>
+      <div class="ms-top">
+        <ul class="hd" id="tab">
+          <li class="cur"><a href="/">浏览排行</a></li>
+          <li class=""><a href="/">评论排行</a></li>
+          <li class=""><a href="/">站长推荐</a></li>
+        </ul>
+      </div>
+      <div class="ms-main" id="ms-main">
+        <div style="display: block;" class="bd bd-news" >
+          <ul>
+            {% for ranking in article_ranking_list %}
+            <li><a href="/" target="_blank">{{ ranking.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div  class="bd bd-news">
+          <ul>
+            {% for article in article_comment_list %}
+            <li><a href="/" target="_blank">{{ article.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="bd bd-news">
+          <ul>
+            {% for recommend in sute_recommend_list %}
+            <li><a href="/" target="_blank">{{ recommend.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <!--ms-main end --> 
+      <!-- sidebar -->
+      <div id="sidebar">
+        <div class="cloud">
+          <h3>标签云</h3>
+      <ul>
+        {% for tag in tag_list %}
+        <li><a href="/">{{ tag.name }}</a></li>
+        {% endfor %}
+      </ul>
+        </div>
+        <div class="tuwen">
+          <h3>文章归档</h3>
+      <ul>
+        {% for archive in archive_list %}
+        <li>
+          <p><span class="tutime font-size-18"><a href='{% url 'archive' %}?year={{ archive | slice:":4" }}&month={{ archive | slice:"5:7" }}'>{{ archive }}</a></span></p>
+        </li>
+        {% endfor %}
+      </ul>
+        </div>
+        <div class="links">
+          <h3>友情链接</h3>
+      <ul>
+        {% for link in links %}
+        <li><a href="{{ link.callback_url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+        </div>
+        <div class="tuwen">
+          <h3>分类</h3>
+          <ul>
+        {% for cate in cate_list %}
+        <li>
+          <p><span class="tutime font-size-18">{{cate.name}}</span></p>
+        </li>
+        {% endfor %}
+          </ul>
+        </div>
+        <!-- /sidebar --> 
+      </div>
+    </div>
+  </div>
+  
+  <!-- content -->
+  <div id="content-wrap" class="clear fl" > </div>
+  <!-- /wrap --> 
+</div>
+<!-- footer -->
+<div id="footer"> 
+  
+  <!-- footer-outer -->
+  <div id="footer-outer" class="clear">
+    <div id="footer-wrap">
+      <div class="fix"></div>
+      
+      <!-- footer-bottom -->
+      <div id="footer-bottom">
+        <div class="bottom-left">
+          <p> &copy; 2010 <strong>Copyright Info Here</strong>&nbsp; &nbsp; &nbsp;
+            Design by <a href="http://www.styleshout.com/">styleshout</a> </p>
+        </div>
+        
+        <!-- /footer-bottom --> 
+      </div>
+      
+      <!-- /footer-outer --> 
+    </div>
+  </div>
+  
+  <!-- /footer --> 
+</div>
+</body>
+<script type="text/javascript" src="/static/js/backtop.js"></script>
+</html>
