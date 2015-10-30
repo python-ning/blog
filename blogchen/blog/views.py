@@ -91,13 +91,11 @@ def getPage(request, article_list):
 # 文章详情
 def article(request):
     try:
-        print 123235456687
         # 获取文章Id
         id = request.GET.get('id', None)
         try:
             # 获取文章信息
             article = Article.objects.get(pk=id)
-            print article
         except Article.DoesNotExist:
             return render(request, 'failure.html', {'reason': '没有找到对应的文章'})
 
@@ -120,7 +118,7 @@ def article(request):
     except Exception as e:
         print e
         logger.error(e)
-    return render(request, 'article.html', {"article":article})
+    return render(request, 'article.html', {"article": article})
 
 
 # 提交评论
@@ -191,7 +189,7 @@ def do_login(request):
             if login_form.is_valid():
                 # 登录
                 username = login_form.cleaned_data['username']
-                password = login_form.cleaned_data['username']
+                password = login_form.cleaned_data['password']
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     user.backend = 'django.contrib.auth.backends.ModelBackend'  # 指定默认的登录

@@ -74,7 +74,8 @@ class ArticleManager(models.Manager):
 # 文章模型
 class Article(models.Model):
     title = models.CharField(max_length=50, verbose_name='文章标题')
-    desc = models.CharField(max_length=50, verbose_name='文章描述')
+    desc = models.CharField(max_length=50, blank=True,
+                            null=True, verbose_name='文章描述')
     content = models.TextField(verbose_name='文章内容')
     click_count = models.IntegerField(default=0, verbose_name='点击次数')
     is_recommend = models.BooleanField(default=1, verbose_name='是否推荐')
@@ -129,24 +130,6 @@ class Links(models.Model):
 
     class Meta:
         verbose_name = '友情链接'
-        verbose_name_plural = verbose_name
-        ordering = ['index', 'id']
-
-    def __unicode__(self):
-        return self.title
-
-
-# 广告
-class Ad(models.Model):
-    title = models.CharField(max_length=50, verbose_name='广告标题')
-    description = models.CharField(max_length=200, verbose_name='广告描述')
-    image_url = models.ImageField(upload_to='ad/%Y/%m', verbose_name='图片路径')
-    callback_url = models.URLField(null=True, blank=True, verbose_name='回调url')
-    date_publish = models.DateTimeField(auto_now_add=True, verbose_name='发布时间')
-    index = models.IntegerField(default=999, verbose_name='排列顺序（从小到大）')
-
-    class Meta:
-        verbose_name = u'广告'
         verbose_name_plural = verbose_name
         ordering = ['index', 'id']
 
