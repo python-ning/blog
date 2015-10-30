@@ -25,32 +25,32 @@
   
   <!-- header -->
   <div id="header"> <a name="top"></a>
-    <h1 id="logo-text"><a href="index.html" title="">python_ning</a></h1>
+    <h1 id="logo-text"><a href="index.html" title="">python ning</a></h1>
     <p id="slogan">like python like you </p>
     <div  id="nav">
       <ul class="menu">
         <li><a href="{% url 'index' %}">首页</a></li>
         <li><a href="{% url 'articlelist' %}">文章</a>
-          <ul class="submenu">
+<!--           <ul class="submenu">
             <li><a href="#">子菜单A</a></li>
             <li><a href="#">子菜单B</a></li>
             <li><a href="#">子菜单C</a></li>
-          </ul>
+          </ul> -->
         </li>
         <li class="active"><a href="#s2">心情</a>
-          <ul class="submenu">
+<!--           <ul class="submenu">
             <li><a href="#">子菜单A</a></li>
             <li><a href="#">子菜单B</a></li>
             <li><a href="#">子菜单C</a></li>
-          </ul>
+          </ul>  -->
         </li>
         <li><a href="#">相册</a>
-          <ul class="submenu">
+<!--           <ul class="submenu">
             <li><a href="#">子菜单A</a></li>
             <li><a href="#">子菜单B</a></li>
             <li><a href="#">子菜单C</a></li>
             <li><a href="#">子菜单H</a></li>
-          </ul>
+          </ul>  -->
         </li>
         <li><a href="#">留言</a></li>
         <li><a href="#">关于我</a></li>
@@ -108,21 +108,21 @@ window.onload = function ()
         <div style="display: block;" class="bd bd-news" >
           <ul>
             {% for ranking in article_ranking_list %}
-            <li><a href="/" target="_blank">{{ ranking.title }}</a></li>
+            <li><a href="/article/?id={{ ranking.id }}" target="_blank">{{ ranking.title }}</a></li>
             {% endfor %}
           </ul>
         </div>
         <div  class="bd bd-news">
           <ul>
             {% for article in article_comment_list %}
-            <li><a href="/" target="_blank">{{ article.title }}</a></li>
+            <li><a href="/article/?id={{ article.id }}" target="_blank">{{ article.title }}</a></li>
             {% endfor %}
           </ul>
         </div>
         <div class="bd bd-news">
           <ul>
             {% for recommend in sute_recommend_list %}
-            <li><a href="/" target="_blank">{{ recommend.title }}</a></li>
+            <li><a href="/article/?id={{ recommend.id }}" target="_blank">{{ recommend.title }}</a></li>
             {% endfor %}
           </ul>
         </div>
@@ -132,7 +132,7 @@ window.onload = function ()
       <div id="sidebar">
         <div class="cloud">
           <h3>标签云</h3>
-      <ul>
+      <ul>      
         {% for tag in tag_list %}
         <li><a href="/">{{ tag.name }}</a></li>
         {% endfor %}

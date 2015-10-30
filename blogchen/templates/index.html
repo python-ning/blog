@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block banner %}
-<div id="featured">
+<div id="featured" style="margin-top: 10px;">
   <div id="featured-block"> <a name="TemplateInfo"></a>
     <div class="image-block">
       <div class="wrapper">
@@ -106,8 +106,8 @@
 {% endblock %}
 {% block content %}
 <div class="topnews">
-  <h3>最新文章</h3>
-  <hr  style="color:#C00"/>
+      <h3 style="font-size: 30px; margin-top: 390px;margin-left: -10px; padding-bottom: 10px; color: #c67114;">最新文章</h3>
+      <hr style="height:1px; margin-left:-10px; margin-right:50px;border:none;border-top:3px solid #B6531C;" />
   {% for article in article_list %}
   <div class="blogs">
     <ul>
@@ -118,5 +118,5 @@
     </ul>
   </div>
   {% endfor %} </div>
-  <a href="{% url 'articlelist' %}"> 查看更多</a>
+<a href="{% url 'articlelist' %}"> 查看更多</a> 
 {% endblock %}
